@@ -1,6 +1,6 @@
 
 /*
-参考
+【参考】
 Node.jsでGoogle SpreadSheetsを操作してみよう。【GAS不使用】
 https://dotstud.io/blog/google-spreadsheets-from-nodejs/
 
@@ -9,15 +9,32 @@ https://qiita.com/kajirikajiri/items/e5de5e0d1f77eb304bec
 */
 
 /*
+【事前準備1:client_secret.jsonのDownload】
 1.https://console.developers.google.com/start/api?id=sheets.googleapis.com
 2.OAuth同意画面の作成
 3.認証情報を作成 -> OAuthクライアントID
 4.client_secret_xxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com.jsonのダウンロード
 5.client_secret.jsonへリネーム
+
+【事前準備2:npmの準備】
+npm init -y
+npm install googleapis google-auth-library
 */
 
 /*
-npm i googleapis google-auth-library --save
+【アクセストークンの取得】
+1.main.jsの実行
+2.URLを入力
+3.シートのユーザを入力
+4.コードを入力
+$ node main.js 
+Authorize this app by visiting this url:  https://accounts.google.com/o/oauth2/v2/auth?********
+Enter the code from that page here: *****************************************
+TOKEN GET SUCCESS
+Token stored to .sheets.googleapis.com-nodejs-quickstart.json
+$
+.client_secret.json
+.access_token.json
 */
 
 var fs = require('fs')
@@ -28,7 +45,7 @@ var { OAuth2Client } = require('google-auth-library')
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-var TOKEN_PATH = '.sheets.googleapis.com-nodejs-quickstart.json'
+var TOKEN_PATH = '.access_token.json'
 
 // client_secret.jsonの読み込み
 fs.readFile('.client_secret.json', function processClientSecrets(
